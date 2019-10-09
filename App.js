@@ -3,22 +3,44 @@ import { View, Text, SafeAreaView, Animated, StyleSheet, TouchableWithoutFeedbac
 
 
 export default class App extends Component {
+  state ={
+
+    animated: new Animated.Value(1)
+  }
+
+  startAnimation=()=>{
+    Animated.timing(this.state.animated,{
+      toValue:0,
+      duration:350
+    }).start(
+    ()=>{
+      Animated.timing(this.state.animated,{
+        toValue:1,
+        duration:350
+      }).start()
+    }
+    )
+  }
   render() {
+    const animatedStyles={
+      opacity : this.state.animated
+    }
     return (
 
-      <SafeAreaView>
-        <View style={styles.Container}>
+      <View style={styles.Container}>
+      
 
           <TouchableWithoutFeedback onPress={this.startAnimation}>
-            <Animated.View style={styles.box}>
+            <Animated.View style={[styles.box,
+              animatedStyles]}/>
 
-            </Animated.View>
+           
 
           </TouchableWithoutFeedback>
-        </View>
+       
 
 
-      </SafeAreaView>
+      </View>
     )
   }
 }
